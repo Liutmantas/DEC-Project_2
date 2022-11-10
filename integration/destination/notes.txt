@@ -1,0 +1,2 @@
+# snowfkale-airbyte setup
+# script to run in the snowflakes worksheet
