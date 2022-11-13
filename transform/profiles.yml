@@ -1,4 +1,4 @@
-dw:
+transform:
   target: dev
   outputs:
     dev:
