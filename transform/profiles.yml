@@ -2,12 +2,12 @@ transform:
   target: dev
   outputs:
     dev:
-      account: "{{ env_var('SNOWFLAKE_ACCOUNT_ID') }}"
+      account: "YX69744"
       database: AIRBYTE_DATABASE
-      password: "{{ env_var('AIRBYTE_PASSWORD') }}"
+      password: "Arthur#123"
       role: AIRBYTE_ROLE
-      schema: AIRBYTE_SCHEMA
+      schema: PUBLIC
       threads: 12
       type: snowflake
-      user: AIRBYTE_USER
+      user: Arthur
       warehouse: AIRBYTE_WAREHOUSE
