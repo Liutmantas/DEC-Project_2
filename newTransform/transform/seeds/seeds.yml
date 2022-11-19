@@ -1,0 +1,7 @@
+version: 2
+
+seeds:
+  - name: departments
+    config:
+      database: airbyte_database
+      schema: public
