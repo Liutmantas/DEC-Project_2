@@ -9,5 +9,5 @@
 
 select 
     * 
-from {{ source('airbyte', 'raw_data')}}
+from {{ source('airbyte_schema', 'raw_data')}}
 limit 25

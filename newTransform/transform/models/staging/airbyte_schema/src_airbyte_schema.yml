@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: airbyte
+  - name: airbyte_schema
     database: airbyte_database
     schema: public
     tables:
