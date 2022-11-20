@@ -25,16 +25,18 @@ The pipeline currently contains the following dataset:
   <img src="src/images/ELT.png" alt="arch" width="720px" height="480px">
 </p>
 
-### EXTRACT (ML)
+### EXTRACT
 
 - Data extraction form the API https://www.alphavantage.co/
 - Sign up to receive API Key: https://www.alphavantage.co/support/#api-key
 - API parameters can be found: https://www.alphavantage.co/documentation/
 
 
-### LOAD (ML)
+### LOAD
 
-- Load to Postgres:
+- Load to Postgres: 
+  - Using SQLalchemy create the engine API to Postgres;
+  - Use the "secrets_config" to enter Postgres credentials;
 <p align="center"> 
   <img src="src/images/postgres_output.PNG" alt="arch" width="720px" height="480px">
 </p>
