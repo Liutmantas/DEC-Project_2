@@ -72,11 +72,11 @@ The pipeline currently contains the following dataset:
 - Transformation features:  Basic SQL transforms, packages, seeds, macros, genneric tests, singular tests, source freshness checks, documentation and interdependencies
 
 <p align="center"> 
-  <img src="src/images/dagt.PNG" alt="arch" width="720px" height="280px">
+  <img src="src/images/dagt.PNG" alt="arch" width="720px" height="380px">
 </p>
 
 <p align="center"> 
-  <img src="src/images/sfdbtt.PNG" alt="arch" width="720px" height="280px">
+  <img src="src/images/sfdbtt.PNG" alt="arch" width="720px" height="380px">
 </p>
 
 - Final serving table intented to be imported and analyzed into BI tool of choice with minimal additional transormations required (headless)
@@ -84,13 +84,13 @@ The pipeline currently contains the following dataset:
 - Power BI Connection
 
 <p align="center"> 
-  <img src="src/images/connect.PNG" alt="arch" width="720px" height="280px">
+  <img src="src/images/connect.PNG" alt="arch" width="720px" height="380px">
 </p>
 
 - Power BI Dashboard
 
 <p align="center"> 
-  <img src="src/images/bitool.PNG" alt="arch" width="720px" height="280px">
+  <img src="src/images/bitool.PNG" alt="arch" width="720px" height="380px">
 </p>
 
 ### FUTURE WORK
