@@ -44,6 +44,18 @@ The pipeline currently contains the following dataset:
   <img src="src/images/Airbyte_connect.PNG" alt="arch" width="580px" height="320px">
 </p>
 
+- Push data into the Snowflake RAW table:
+<p align="center"> 
+  <img src="src/images/Snowflake_Raw.PNG" alt="arch" width="580px" height="320px">
+</p>
+
+- Create in Snowflake user, roles, database and warehouse. Grand user access to the loaded data:
+<p align="center"> 
+  <img src="src/images/Snowflake_users_roles.PNG" alt="arch" width="580px" height="320px">
+</p>
+
+
+
 
 ### TRANSFORM (Arthur)
 
