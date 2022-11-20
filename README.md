@@ -39,6 +39,12 @@ The pipeline currently contains the following dataset:
   <img src="src/images/postgres_output.png" alt="arch" width="580px" height="320px">
 </p>
 
+- Use Airbyte to connect Postgres to Snowflake:
+<p align="center"> 
+  <img src="src/images/Airbyte_connect.png" alt="arch" width="580px" height="320px">
+</p>
+
+
 ### TRANSFORM (Arthur)
 
 - dbt
