@@ -11,6 +11,8 @@
 
 
 
+
+
 This is a data engineering pipeline that extracts, loads and transforms multiple sets of economic and financial data from the [Alpha Vantage API](https://www.alphavantage.co/documentation/). 
 
 
@@ -33,6 +35,6 @@ The pipeline currently contains the following datasets:
 - Dockerizing and serving ELT pipeline on AWS with use of ECS, ECR, S3, RDS, and IAM
 
 <p align="center"> 
-  <img src="src/images/arch.png" alt="arch" width="580px" height="320px">
+  <img src="src/images/ELT.png" alt="arch" width="580px" height="320px">
 </p>
 
