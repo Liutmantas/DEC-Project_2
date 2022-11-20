@@ -51,7 +51,7 @@ The pipeline currently contains the following dataset:
   <img src="src/images/Snowflake_Raw.PNG" alt="arch" width="720px" height="280px">
 </p>
 <p align="center"> 
-  <img src="src/images/Snowflake_Raw_Tables_Raw.PNG" alt="arch" width="720px" height="280px">
+  <img src="src/images/Snowflake_Raw_Tables.PNG" alt="arch" width="720px" height="280px">
 </p>
 
 - Create in Snowflake user, roles, database and warehouse. Grand user access to the loaded data:
