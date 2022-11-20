@@ -46,12 +46,12 @@ The pipeline currently contains the following dataset:
 
 - Push data into the Snowflake RAW table:
 <p align="center"> 
-  <img src="src/images/Snowflake_Raw.PNG" alt="arch" width="720px" height="380px">
+  <img src="src/images/Snowflake_Raw.PNG" alt="arch" width="720px" height="280px">
 </p>
 
 - Create in Snowflake user, roles, database and warehouse. Grand user access to the loaded data:
 <p align="center"> 
-  <img src="src/images/Snowflake_users_roles.PNG" alt="arch" width="720px" height="380px">
+  <img src="src/images/Snowflake_users_roles.PNG" alt="arch" width="720px" height="280px">
 </p>
 
 
