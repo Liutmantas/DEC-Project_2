@@ -7,19 +7,17 @@
 ---
 
 
-## Objective (INCOMPLETE)
+## Objective
 
-This is a data engineering pipeline that extracts, loads and transforms a single set of stock data from the [Alpha Vantage API](https://www.alphavantage.co/documentation/). 
+The purpose of this project was to create a data engineering pipeline that extracts, loads and transforms a single set of stock data from the [Alpha Vantage API](https://www.alphavantage.co/documentation/) for use as a source in a BI tool of choice.
 
-The output of the pipeline could be used by data/business analysts, investment managers and other finance professionals, data and finance journalists alike, depending on the specific use case.
-
-## Source dataset (INCOMPLETE)
+## Source dataset
 
 The pipeline currently contains the following dataset:
 
-- [Foreign Exchange (FX) daily exchange rates](https://www.alphavantage.co/documentation/#currency-exchange) for a single company (IBM)
+- [Intraday](https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=QB4Z8IGGKJNRB5Q1) for a single company (IBM)
 
-## Architecture (INCOMPLETE)
+## Architecture
 
 <p align="center"> 
   <img src="src/images/ELT.png" alt="arch" width="720px" height="480px">
@@ -67,9 +65,9 @@ The pipeline currently contains the following dataset:
 - dbt
 - 
 
-### FUTURE WORK (All)
+### FUTURE WORK
 
-- Custom API Connection ... details
-- Orchestration ... details
-- Cloud ... details
+- Integrate custom Airbyte API into extract and load process to bypass postgres staging
+- Apply orchestration, process dependencies, and logging with Airbyte
+- Package and host full pipeline in the cloud
 
