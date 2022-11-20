@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: airbyte_schema
+    database: airbyte_database
+    schema: public
+    tables:
+      - name: raw_data
+        loaded_at_field: _airbyte_emitted_at
+        freshness:
+          warn_after: {count: 2, period: hour}
+          error_after: {count: 240, period: hour}

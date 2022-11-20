@@ -1,0 +1,7 @@
+version: 2
+
+seeds:
+  - name: picklist
+    config:
+      database: airbyte_database
+      schema: public

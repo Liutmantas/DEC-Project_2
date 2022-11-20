@@ -34,5 +34,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   transform:
     # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    airbyte_schema:
+      marts:
+        core:
+          +materialized: table
+      staging:
+        +materialized: view

@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_raw_data
+    description: Light clean and quick QC
+    columns:
+      - name: close
+        tests:
+          - not_null
+         # - accepted_values:
+         #     values:
+         #       - 111.11
+      - name: open
+        tests:
+          - not_null
+      - name: high
+        tests:
+          - not_null
+      - name: low
+        tests:
+          - not_null
+      - name: _airbyte_ab_id
+        tests:
+          - unique
+  - name: stg_agg_window_percent
+    description: 30 day metrics
+  - name: stg_trailingavg
+    description: window function applications
+  - name: fct_maintable
+    description: Primary export table for BI analysis
