@@ -1,275 +1,95 @@
-{
- "cells": [
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Etracting from the API:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 101,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# import all the libraries:\n",
-    "import requests\n",
-    "import pandas as pd\n",
-    "import logging\n",
-    "from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, Float, JSON\n",
-    "from sqlalchemy.engine import URL\n",
-    "from sqlalchemy.dialects import postgresql\n",
-    "from secrets_config import db_user, db_password, db_server_name, db_database_name"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 102,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# replace the \"demo\" apikey below with your own key from https://www.alphavantage.co/support/#api-key\n",
-    "# documentation - https://www.alphavantage.co/documentation/\n",
-    "# outputsize = compact will return just previous day trade, full - over 20 yrs of data\n",
-    "\n",
-    "params = {\n",
-    "    \"function\": \"TIME_SERIES_DAILY_ADJUSTED\",\n",
-    "    \"symbol\": \"IBM\",\n",
-    "    \"outputsize\": \"full\",\n",
-    "    \"datatype\": \"json\"\n",
-    "}\n",
-    "\n",
-    "url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=QB4Z8IGGKJNRB5Q1'\n",
-    "response = requests.get(url, params=params)\n",
-    "response_data = response.json()\n",
-    "\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 103,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# normalizing dataftrame\n",
-    "df_norm = pd.json_normalize(data=response_data)\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 104,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# formating data\n",
-    "my_list=[]\n",
-    "\n",
-    "for timestamp in response_data[\"Time Series (Daily)\"].keys():\n",
-    "    record={\n",
-    "    \n",
-    "        \"timestamp\": timestamp,\n",
-    "        \"open\": response_data[\"Time Series (Daily)\"][timestamp][\"1. open\"],\n",
-    "        \"high\": response_data[\"Time Series (Daily)\"][timestamp][\"2. high\"],\n",
-    "        \"low\": response_data[\"Time Series (Daily)\"][timestamp][\"3. low\"],\n",
-    "        \"close\": response_data[\"Time Series (Daily)\"][timestamp][\"4. close\"],\n",
-    "        \"adjusted_close\": response_data[\"Time Series (Daily)\"][timestamp][\"5. adjusted close\"],\n",
-    "        \"volume\": response_data[\"Time Series (Daily)\"][timestamp][\"6. volume\"],\n",
-    "        \"dividend_amount\": response_data[\"Time Series (Daily)\"][timestamp][\"7. dividend amount\"],\n",
-    "        \"split_coefficient\": response_data[\"Time Series (Daily)\"][timestamp][\"8. split coefficient\"]\n",
-    "   \n",
-    "\n",
-    "    }\n",
-    "    my_list.append(record)\n",
-    "#print(my_list)\n",
-    "\n",
-    "    "
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 105,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "Index(['Meta Data.1. Information', 'Meta Data.2. Symbol',\n",
-       "       'Meta Data.3. Last Refreshed', 'Meta Data.4. Output Size',\n",
-       "       'Meta Data.5. Time Zone', 'Time Series (Daily).2022-11-09.1. open',\n",
-       "       'Time Series (Daily).2022-11-09.2. high',\n",
-       "       'Time Series (Daily).2022-11-09.3. low',\n",
-       "       'Time Series (Daily).2022-11-09.4. close',\n",
-       "       'Time Series (Daily).2022-11-09.5. adjusted close',\n",
-       "       ...\n",
-       "       'Time Series (Daily).1999-11-02.7. dividend amount',\n",
-       "       'Time Series (Daily).1999-11-02.8. split coefficient',\n",
-       "       'Time Series (Daily).1999-11-01.1. open',\n",
-       "       'Time Series (Daily).1999-11-01.2. high',\n",
-       "       'Time Series (Daily).1999-11-01.3. low',\n",
-       "       'Time Series (Daily).1999-11-01.4. close',\n",
-       "       'Time Series (Daily).1999-11-01.5. adjusted close',\n",
-       "       'Time Series (Daily).1999-11-01.6. volume',\n",
-       "       'Time Series (Daily).1999-11-01.7. dividend amount',\n",
-       "       'Time Series (Daily).1999-11-01.8. split coefficient'],\n",
-       "      dtype='object', length=46365)"
-      ]
-     },
-     "execution_count": 105,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "# show norm:\n",
-    "df_norm.columns"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 106,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# dataframe to csv file\n",
-    "df_norm.to_csv('output.csv')"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Loading into the Postgres:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 107,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Engine(postgresql+pg8000://postgres:***@localhost:5432/Alpha_Vantage_Stocks)\n"
-     ]
-    }
-   ],
-   "source": [
-    "# create connection to database \n",
-    "connection_url = URL.create(\n",
-    "    drivername = \"postgresql+pg8000\", \n",
-    "    username = db_user,\n",
-    "    password = db_password,\n",
-    "    host = db_server_name, \n",
-    "    port = 5432,\n",
-    "    database = db_database_name, \n",
-    ")\n",
-    "\n",
-    "engine = create_engine(connection_url)\n",
-    "print(engine)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 108,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# specify target table schema \n",
-    "meta = MetaData()\n",
-    "Raw = Table(\n",
-    "    \"raw_data\", meta,\n",
-    "    Column(\"timestamp\", String, primary_key=True),\n",
-    "    Column(\"open\", Float),\n",
-    "    Column(\"high\", Float),\n",
-    "    Column(\"low\", Float),\n",
-    "    Column(\"close\", Float),\n",
-    "    Column(\"adjusted_close\", Float),\n",
-    "    Column(\"volume\", Integer),\n",
-    "    Column(\"dividend_amount\", Float),\n",
-    "    Column(\"split_coefficient\", Float)\n",
-    "   )\n",
-    "meta.create_all(engine) # creates table if it does not exist"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 109,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# insert the data into the table\n",
-    "insert_statement = postgresql.insert(Raw).values(my_list[0:1000])\n",
-    "upsert_statement = insert_statement.on_conflict_do_update(\n",
-    "    index_elements=['timestamp'],\n",
-    "    set_={c.key: c for c in insert_statement.excluded if c.key not in ['timestamp']})\n",
-    "with engine.connect() as connection: \n",
-    "    connection.execute(upsert_statement)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 110,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# def upsert_in_chunks(my_json, engine, table_schema:Table, key_columns:list, chunksize:int=1000)->bool:\n",
-    "#     \"\"\"\n",
-    "#     performs the upsert with several rows at a time (i.e. a chunk of rows). this is better suited for very large sql statements that need to be broken into several steps. \n",
-    "#     \"\"\"\n",
-    "#     max_length = len(my_json)\n",
-    "#     for i in range(0, max_length, chunksize):\n",
-    "#         if i + chunksize >= max_length: \n",
-    "#             lower_bound = i\n",
-    "#             upper_bound = max_length \n",
-    "#         else: \n",
-    "#             lower_bound = i \n",
-    "#             upper_bound = i + chunksize\n",
-    "#         insert_statement = postgresql.insert(table_schema).values(my_json)\n",
-    "#         upsert_statement = insert_statement.on_conflict_do_update(\n",
-    "#             index_elements=key_columns,\n",
-    "#             set_={c.key: c for c in insert_statement.excluded if c.key not in key_columns})\n",
-    "#         logging.info(f\"Inserting chunk: [{lower_bound}:{upper_bound}] out of index {max_length}\")\n",
-    "#         result = engine.execute(upsert_statement)\n",
-    "#     return True"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 111,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# upsert_in_chunks(my_list, engine, Raw, \"timestamp\")\n"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3.9.13 ('bootcamp')",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.9.13"
-  },
-  "orig_nbformat": 4,
-  "vscode": {
-   "interpreter": {
-    "hash": "4f3ba076c6553abc6fbce857c205f75f6319e3caf08d94cca3251ad29dfe12eb"
-   }
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 2
+# import all the libraries:
+import requests
+import pandas as pd
+import logging
+from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, Float, JSON
+from sqlalchemy.engine import URL
+from sqlalchemy.dialects import postgresql
+from secrets_config import db_user, db_password, db_server_name, db_database_name
+
+# replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
+# documentation - https://www.alphavantage.co/documentation/
+# outputsize = compact will return just previous day trade, full - over 20 yrs of data
+
+params = {
+    "function": "TIME_SERIES_DAILY_ADJUSTED",
+    "symbol": "IBM",
+    "outputsize": "full",
+    "datatype": "json"
 }
+
+url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=QB4Z8IGGKJNRB5Q1'
+response = requests.get(url, params=params)
+response_data = response.json()
+
+
+# normalizing dataftrame
+df_norm = pd.json_normalize(data=response_data)
+
+# formating data
+my_list=[]
+
+for timestamp in response_data["Time Series (Daily)"].keys():
+    record={
+    
+        "timestamp": timestamp,
+        "open": response_data["Time Series (Daily)"][timestamp]["1. open"],
+        "high": response_data["Time Series (Daily)"][timestamp]["2. high"],
+        "low": response_data["Time Series (Daily)"][timestamp]["3. low"],
+        "close": response_data["Time Series (Daily)"][timestamp]["4. close"],
+        "adjusted_close": response_data["Time Series (Daily)"][timestamp]["5. adjusted close"],
+        "volume": response_data["Time Series (Daily)"][timestamp]["6. volume"],
+        "dividend_amount": response_data["Time Series (Daily)"][timestamp]["7. dividend amount"],
+        "split_coefficient": response_data["Time Series (Daily)"][timestamp]["8. split coefficient"]
+   
+
+    }
+    my_list.append(record)
+
+
+# show norm:
+df_norm.columns
+
+# dataframe to csv file
+df_norm.to_csv('output.csv')
+
+
+# create connection to database 
+connection_url = URL.create(
+    drivername = "postgresql+pg8000", 
+    username = db_user,
+    password = db_password,
+    host = db_server_name, 
+    port = 5432,
+    database = db_database_name, 
+)
+
+engine = create_engine(connection_url)
+print(engine)
+
+
+# specify target table schema 
+meta = MetaData()
+Raw = Table(
+    "raw_data", meta,
+    Column("timestamp", String, primary_key=True),
+    Column("open", Float),
+    Column("high", Float),
+    Column("low", Float),
+    Column("close", Float),
+    Column("adjusted_close", Float),
+    Column("volume", Integer),
+    Column("dividend_amount", Float),
+    Column("split_coefficient", Float)
+   )
+meta.create_all(engine) # creates table if it does not exist
+
+
+# insert the data into the table
+insert_statement = postgresql.insert(Raw).values(my_list[0:1000])
+upsert_statement = insert_statement.on_conflict_do_update(
+    index_elements=['timestamp'],
+    set_={c.key: c for c in insert_statement.excluded if c.key not in ['timestamp']})
+with engine.connect() as connection: 
+    connection.execute(upsert_statement)
+
