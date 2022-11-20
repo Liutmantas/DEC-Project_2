@@ -25,13 +25,19 @@ The pipeline currently contains the following dataset:
   <img src="src/images/ELT.png" alt="arch" width="580px" height="320px">
 </p>
 
-### EXTRACT (ML MH)
+### EXTRACT (ML)
 
-- add
+- Data extraction form the API https://www.alphavantage.co/
+- Sign up to receive API Key: https://www.alphavantage.co/support/#api-key
+- API parameters can be found: https://www.alphavantage.co/documentation/
 
-### LOAD (ML MH)
 
-- add
+### LOAD (ML)
+
+- Load to Postgres:
+<p align="center"> 
+  <img src="src/images/postgres_output.png" alt="postgres output" width="360px" height="180px">
+</p>
 
 ### TRANSFORM (Arthur)
 
