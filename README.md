@@ -81,6 +81,18 @@ The pipeline currently contains the following dataset:
 
 - Final serving table intented to be imported and analyzed into BI tool of choice with minimal additional transormations required (headless)
 
+- Power BI Connection
+
+<p align="center"> 
+  <img src="src/images/connect.PNG" alt="arch" width="720px" height="280px">
+</p>
+
+- Power BI Dashboard
+
+<p align="center"> 
+  <img src="src/images/bitool.PNG" alt="arch" width="720px" height="280px">
+</p>
+
 ### FUTURE WORK
 
 - Integrate custom Airbyte API into extract and load process to bypass postgres staging
