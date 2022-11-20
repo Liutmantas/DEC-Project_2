@@ -1,5 +1,4 @@
 select
-    ticker,
     low,
     high,
     open,
