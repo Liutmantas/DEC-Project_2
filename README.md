@@ -76,7 +76,7 @@ The pipeline currently contains the following dataset:
 </p>
 
 <p align="center"> 
-  <img src="src/images/sfdbt.PNG" alt="arch" width="720px" height="280px">
+  <img src="src/images/sfdbtt.PNG" alt="arch" width="720px" height="280px">
 </p>
 
 - Final serving table intented to be imported and analyzed into BI tool of choice with minimal additional transormations required (headless)
