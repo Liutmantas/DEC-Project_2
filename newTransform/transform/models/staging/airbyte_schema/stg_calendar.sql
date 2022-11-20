@@ -1,10 +1,4 @@
-{{
-    config(
-        materialized='table',
-        database='airbyte_database',
-        schema='airbyte_schema'
-    )
-}}
+
 with spine as (
     {{ dbt_utils.date_spine(
         datepart="days",
