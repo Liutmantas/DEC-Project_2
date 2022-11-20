@@ -60,7 +60,7 @@ The pipeline currently contains the following dataset:
 
 
 
-### TRANSFORM (Arthur)
+### TRANSFORM
 
 - dbt core applied to Snowflake cloud data warehouse to take full advantage of analytical engineering practices:  version control, documentation, and modularity of sql code
 
