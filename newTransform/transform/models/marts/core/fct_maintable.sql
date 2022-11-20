@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='table',
+        database='airbyte_database',
+        schema='airbyte_schema'
+    )
+}}
+
 select
     low,
     high,

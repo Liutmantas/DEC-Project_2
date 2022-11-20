@@ -62,8 +62,24 @@ The pipeline currently contains the following dataset:
 
 ### TRANSFORM (Arthur)
 
-- dbt
-- 
+- dbt core applied to Snowflake cloud data warehouse to take full advantage of analytical engineering practices:  version control, documentation, and modularity of sql code
+
+<p align="center"> 
+  <img src="src/images/folders.PNG" alt="arch" width="200px" height="480px">
+</p>
+
+
+- Transformation features:  Basic SQL transforms, packages, seeds, macros, genneric tests, singular tests, source freshness checks, documentation and interdependencies
+
+<p align="center"> 
+  <img src="src/images/dag.PNG" alt="arch" width="720px" height="280px">
+</p>
+
+<p align="center"> 
+  <img src="src/images/sfdbt.PNG" alt="arch" width="720px" height="280px">
+</p>
+
+- Final serving table intented to be imported and analyzed into BI tool of choice with minimal additional transormations required (headless)
 
 ### FUTURE WORK
 
