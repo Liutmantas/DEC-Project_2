@@ -22,3 +22,9 @@ models:
       - name: _airbyte_ab_id
         tests:
           - unique
+  - name: stg_agg_window_percent
+    description: 30 day metrics
+  - name: stg_trailingavg
+    description: window function applications
+  - name: fct_maintable
+    description: Primary export table for BI analysis
