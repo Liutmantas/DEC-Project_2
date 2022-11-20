@@ -41,17 +41,17 @@ The pipeline currently contains the following dataset:
 
 - Use Airbyte to connect Postgres to Snowflake:
 <p align="center"> 
-  <img src="src/images/Airbyte_connect.PNG" alt="arch" width="720px" height="480px">
+  <img src="src/images/Airbyte_connect.PNG" alt="arch" width="720px" height="380px">
 </p>
 
 - Push data into the Snowflake RAW table:
 <p align="center"> 
-  <img src="src/images/Snowflake_Raw.PNG" alt="arch" width="720px" height="480px">
+  <img src="src/images/Snowflake_Raw.PNG" alt="arch" width="720px" height="380px">
 </p>
 
 - Create in Snowflake user, roles, database and warehouse. Grand user access to the loaded data:
 <p align="center"> 
-  <img src="src/images/Snowflake_users_roles.PNG" alt="arch" width="720px" height="480px">
+  <img src="src/images/Snowflake_users_roles.PNG" alt="arch" width="720px" height="380px">
 </p>
 
 
