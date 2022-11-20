@@ -36,12 +36,12 @@ The pipeline currently contains the following dataset:
 
 - Load to Postgres:
 <p align="center"> 
-  <img src="src/images/postgres_output.png" alt="arch" width="580px" height="320px">
+  <img src="src/images/postgres_output.PNG" alt="arch" width="580px" height="320px">
 </p>
 
 - Use Airbyte to connect Postgres to Snowflake:
 <p align="center"> 
-  <img src="src/images/Airbyte_connect.png" alt="arch" width="580px" height="320px">
+  <img src="src/images/Airbyte_connect.PNG" alt="arch" width="580px" height="320px">
 </p>
 
 
