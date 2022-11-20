@@ -36,7 +36,7 @@ The pipeline currently contains the following dataset:
 
 - Load to Postgres:
 <p align="center"> 
-  <img src="src/images/postgres_output.png" alt="postgres output" width="360px" height="180px">
+  <img src="src/images/postgres_output.png" alt="arch" width="580px" height="320px">
 </p>
 
 ### TRANSFORM (Arthur)
